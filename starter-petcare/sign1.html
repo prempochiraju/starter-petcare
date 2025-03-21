@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Sign Up</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #93E2AE;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: transparent;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(16, 15, 15, 0.1);
+            width: 400px;
+        }
+
+        .container h2 {
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            margin-bottom: 15px;
+        }
+
+        .form-control label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-control input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: hsl(257, 68%, 73%);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        button:hover {
+            background-color: #7ac99a;
+        }
+
+        .error-message {
+            color: red;
+        }
+
+        .toggle-form {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .toggle-form button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #007bff;
+            text-decoration: underline;
+            font-size: 14px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="container" id="login-form">
+        <form id="login" onsubmit="return validateLogin(event)">
+            <h2>Login</h2>
+            <div class="form-control">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-control">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+
+        <p id="login-error-message" class="error-message"></p>
+        <div class="toggle-form">
+            <button onclick="toggleForm('signup')">Don't have an account? Sign Up</button>
+        </div>
+    </div>
+
+    <div class="container" id="signup-form" style="display: none;">
+        <form id="signup" onsubmit="return validateSignup(event)">
+            <h2>Sign Up</h2>
+            <div class="form-control">
+                <label for="signup-username">Username:</label>
+                <input type="text" id="signup-username" name="username" required>
+            </div>
+            <div class="form-control">
+                <label for="signup-email">Email:</label>
+                <input type="email" id="signup-email" name="email" required>
+            </div>
+            <div class="form-control">
+                <label for="signup-password">Password:</label>
+                <input type="password" id="signup-password" name="password" required>
+            </div>
+            <div class="form-control">
+                <label for="signup-confirm-password">Confirm Password:</label>
+                <input type="password" id="signup-confirm-password" name="confirm-password" required>
+            </div>
+            <button type="submit">Sign Up</button>
+        </form>
+        <p id="signup-error-message" class="error-message"></p>
+        <div class="toggle-form">
+            <button onclick="toggleForm('login')">Already have an account? Login</button>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = "http://localhost:5000/api/auth"; // Backend URL
+
+        function toggleForm(formToShow) {
+            document.getElementById('login-form').style.display = formToShow === 'login' ? 'block' : 'none';
+            document.getElementById('signup-form').style.display = formToShow === 'signup' ? 'block' : 'none';
+        }
+
+        function validateLogin(event) {
+            event.preventDefault();
+
+            var email = document.getElementById('email').value.trim();
+            var password = document.getElementById('password').value.trim();
+
+            if (!email || !password) {
+                alert("Please fill out both email and password fields.");
+                return false;
+            }
+
+            fetch(`${API_URL}/login`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Server Response:", data);
+
+                if (data.message === "Login successful!") {
+                    alert("Login successful!");
+                    localStorage.setItem("user", JSON.stringify(data.user)); // Save user session
+                    window.location.href = "index.html"; // Redirect to homepage
+                } else {
+                    alert("Login Failed: " + data.message);
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Cannot connect to the server. Is your backend running?");
+            });
+
+            return false;
+        }
+
+        function validateSignup(event) {
+            event.preventDefault();
+
+            var username = document.getElementById('signup-username').value.trim();
+            var email = document.getElementById('signup-email').value.trim();
+            var password = document.getElementById('signup-password').value.trim();
+            var confirmPassword = document.getElementById('signup-confirm-password').value.trim();
+
+            if (!username || !email || !password || !confirmPassword) {
+                alert("All fields are required!");
+                return false;
+            }
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return false;
+            }
+
+            fetch(`${API_URL}/register`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name: username, email, password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Server Response:", data);
+
+                if (data.message === "User registered successfully!") {
+                    alert("Signup successful! Redirecting to home page...");
+                    window.location.href = "index.html"; // Redirect after signup
+                } else {
+                    alert("Signup failed: " + data.message);
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Cannot connect to the server. Is your backend running?");
+            });
+
+            return false;
+        }
+    </script>
+</body>
+</html>

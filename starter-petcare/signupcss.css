@@ -1,0 +1,93 @@
+* {
+    box-sizing: border-box;
+
+}
+
+body {
+    margin: 0;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #93E2AE;
+}
+
+h1 {
+    color: #000;
+    text-align: center;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+form {
+    width: 400px;
+    background-color: #93E2AE;
+    padding: 20px;
+    border-radius: 12px;
+    z-index: 9999;
+    box-shadow: 0px 0px 10px #fff;
+}
+
+form input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid black;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+form input:focus {
+    outline: none;
+    border-color: #394867;
+    transition: .3s;
+}
+
+form label {
+    position: relative;
+    height: 100%;
+    display: block;
+}
+
+form input[type="submit"] {
+    border: none;
+    background-color: #394867;
+    color: #fff;
+}
+
+form label span {
+    font-size: 10px;
+    position: absolute;
+    top: -7px;
+    left: 20px;
+    transition: .3s;
+    background-color: #fff;
+    padding: 2px;
+}
+
+label > input:focus + span {
+    color: #394867;
+    font-size: 12px;
+    transition: .3s;
+    top: -10px;
+}
+
+.termofuse {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.termofuse input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    margin: 0;
+}
+
+.termofuse a {
+    color: #394867;
+    text-decoration: none;
+}

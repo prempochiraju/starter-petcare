@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Credentials Form</title>
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #93E2AE;
+        margin: 0; /* Remove default margin */
+        padding: 0; /* Remove default padding */
+    }
+    .container {
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: transparent;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    input[type="text"], input[type="number"], input[type="email"], textarea {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    input[type="submit"] {
+        background-color: hsl(257, 68%, 73%);
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+        font-family: inherit;
+    }
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+    .top-left-image {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 999;
+        font-family: inherit;
+        font-weight: 520;
+        color: hsl(0, 0%, 10%);
+        display: flex;
+        align-items: center;
+        padding-left: 20px;
+    }
+
+    .text {
+        margin-left: 5px;
+        font-size: 30px;
+    }
+
+    /* Media Query for Responsive Design */
+    @media screen and (max-width: 500px) {
+        .container {
+            margin: 20px auto;
+            padding: 10px;
+        }
+    }
+    .header{
+  position: static !important;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+  padding: 8px 0;
+}
+    
+</style>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+          <div class="header-main">
+            <div class="logo">
+              <a href="#"><img src="img/logo.png" alt="logo">Pawsome Care</a>
+            </div>
+            <button type="button" class="nav-toggler js-nav-toggler">
+              <span></span>
+            </button>
+            <nav class="nav js-nav">
+              <ul>
+                <li style="--item:0"><a href="index1.html">home</a></li>
+                <li style="--item:1"><a href="test1.html">about</a></li>
+                <li style="--item:2"><a href="test2.html">services</a></li>
+                <li style="--item:3"><a href="test3.html">pricing</a></li>
+                <li style="--item:4"><a href="test4.html">contact</a></li>
+                <li style="--item:5"><a href="sign1.html">Signup/Login</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </header>
+<div class="container">
+    <h2>User Credentials</h2>
+    <form id="credentialsForm" onsubmit="return submitForm()">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+
+        <label for="address">Address:</label>
+        <textarea id="address" name="address" rows="4" required></textarea><br>
+
+        <label for="phone">Phone Number:</label>
+        <input type="text" id="phone" name="phone" required><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br>
+
+
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+<script>
+    function submitForm() {
+        // You can add your form submission logic here
+        alert("The payment link will be sent to your registered phone number and email.Thank you!!");
+        window.location.replace("index.html"); // Redirecting to index.html
+        return false; // To prevent the default form submission behavior
+    }
+</script>
+<script src="js/script.js"></script>
+</body>
+</html>
+
+

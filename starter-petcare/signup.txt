@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title> Pet Care </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/font-awesome.css">
+<form action="">
+  <h1>SIGN UP</h1>
+  
+  <label for="name">
+    <input type="text" name="" id="name">
+    <span>NAME</span>
+  </label>
+  
+  <label for="">
+    <input type="tel" name="" id="">
+    <span>PHONE NUMBER</span>
+  </label>
+  
+  <label for="">
+    <input type="text" name="" id="">
+    <span>USER ID</span>
+  </label>
+  
+  <label for="">
+    <input type="password" name="" id="">
+    <span>PASSWORD</span>
+  </label>
+  
+  <div class="termofuse">
+    <input type="checkbox" name="" id="">
+    <span>
+      By submitting this form i agree to
+      <a href="#">terms of use</a>
+    </span>
+  </div>
+  
+ <input type="submit" value="Submit">
+  
+</form>

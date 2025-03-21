@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Pet Care - Signup</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="signupcss.css">
+</head>
+
+<body>
+
+<form id="signup-form" onsubmit="return registerUser(event)">
+  <h1>SIGN UP</h1>
+
+  <label for="signup-name">
+    <input type="text" id="signup-name" required>
+    <span>NAME</span>
+  </label>
+
+  <label for="signup-phone">
+    <input type="tel" id="signup-phone" required>
+    <span>PHONE NUMBER</span>
+  </label>
+
+  <label for="signup-email">
+    <input type="text" id="signup-email" required>
+    <span>EMAIL</span>
+  </label>
+
+  <label for="signup-password">
+    <input type="password" id="signup-password" required>
+    <span>PASSWORD</span>
+  </label>
+
+  <div class="termofuse">
+    <input type="checkbox" id="terms" required>
+    <span>
+      By submitting this form, I agree to
+      <a href="#">terms of use</a>
+    </span>
+  </div>
+
+  <input type="submit" value="Submit">
+</form>
+
+<script>
+    const API_URL = "http://localhost:5000/api/auth"; // Backend URL
+
+    function registerUser(event) {
+        event.preventDefault(); // Prevents page reload
+
+        const name = document.getElementById("signup-name").value.trim();
+        const email = document.getElementById("signup-email").value.trim();
+        const password = document.getElementById("signup-password").value.trim();
+
+        if (!name || !email || !password) {
+            alert("All fields are required!");
+            return false;
+        }
+
+        fetch(`${API_URL}/register`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, email, password })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message === "User registered successfully!") {
+                alert("Signup successful! Redirecting to login...");
+                window.location.href = "sign1.html"; // Redirect to login page
+            } else {
+                alert("Signup failed: " + data.message);
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("An error occurred. Please try again.");
+        });
+
+        return false;
+    }
+</script>
+
+</body>
+</html>
