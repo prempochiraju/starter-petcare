@@ -12,7 +12,7 @@ const app = express();
 const allowedOrigins = [
   "http://localhost:3000",
   "http://127.0.0.1:8080",
-  "https://yourfrontend.vercel.app" // ✅ Add your frontend Vercel URL here
+  "https://starter-petcare.vercel.app"
 ];
 
 // Middleware
@@ -40,5 +40,6 @@ mongoose.connect(process.env.MONGO_URI, {
 }).then(() => console.log("✅ MongoDB Connected"))
   .catch((err) => console.log("❌ MongoDB Connection Error: ", err));
 
-// ✅ Vercel doesn't require `app.listen()`, so export `app`
+// ✅ Must export app (Vercel handles `app.listen()`)
 module.exports = app;
+
