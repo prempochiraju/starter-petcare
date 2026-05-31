@@ -8,12 +8,12 @@ dotenv.config();
 
 const app = express();
 
-// Allow frontend domains
+// Allow frontend domains. Add deployed URLs with FRONTEND_URLS as a comma-separated list.
 const allowedOrigins = [
   "http://localhost:3000",
   "http://127.0.0.1:8080",
   "https://starter-petcare.vercel.app"
-];
+].concat((process.env.FRONTEND_URLS || "").split(",").map(origin => origin.trim()).filter(Boolean));
 
 // Middleware
 app.use(express.json());

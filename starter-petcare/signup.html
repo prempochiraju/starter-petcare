@@ -44,8 +44,9 @@
   <input type="submit" value="Submit">
 </form>
 
+<script src="js/config.js"></script>
 <script>
-    const API_URL = "http://localhost:5000/api/auth"; // Backend URL
+    const API_URL = window.PETCARE_API_URL;
 
     function registerUser(event) {
         event.preventDefault(); // Prevents page reload
