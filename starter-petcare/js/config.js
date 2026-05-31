@@ -1,1 +1,1 @@
-window.PETCARE_API_URL = window.PETCARE_API_URL || "http://localhost:5000/api/auth";
+window.PETCARE_API_URL = window.PETCARE_API_URL || "https://backend-psi-amber-75.vercel.app/api/auth";
