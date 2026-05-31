@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 dotenv.config();
 
 const app = express();
+let mongoConnection;
 
 // Allow frontend domains. Add deployed URLs with FRONTEND_URLS as a comma-separated list.
 const allowedOrigins = [
@@ -29,17 +30,25 @@ app.use(cors({
   credentials: true
 }));
 
+async function connectToDatabase(req, res, next) {
+  try {
+    if (mongoose.connection.readyState === 1) {
+      return next();
+    }
+
+    mongoConnection = mongoConnection || mongoose.connect(process.env.MONGO_URI);
+    await mongoConnection;
+    return next();
+  } catch (err) {
+    console.log("MongoDB Connection Error: ", err);
+    return res.status(500).json({ error: "Database connection error" });
+  }
+}
+
 // Import Routes
 const authRoutes = require("./routes/auth");
+app.use("/api", connectToDatabase);
 app.use("/api/auth", authRoutes);
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}).then(() => console.log("✅ MongoDB Connected"))
-  .catch((err) => console.log("❌ MongoDB Connection Error: ", err));
-
-// ✅ Must export app (Vercel handles `app.listen()`)
+// Vercel handles app.listen().
 module.exports = app;
-
